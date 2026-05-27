@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Какой вид спорта тебе подходит? | Basecamp Quiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container { width: 100%; max-width: 520px; }
+
+        .screen { display: none; }
+        .screen.active {
+            display: block;
+            animation: slideIn 0.4s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #e94560, #ff6b6b, #feca57, #48dbfb, #0abde3);
+        }
+
+        .sport-icons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 42px;
+            color: #1a1a2e;
+            text-align: center;
+            line-height: 1.1;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            font-size: 15px;
+            color: #666;
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .btn-primary {
+            display: block;
+            width: 100%;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, #e94560 0%, #ff6b6b 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Inter', system-ui, sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(233, 69, 96, 0.4);
+        }
+
+        .brand {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Progress */
+        .progress-container {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 24px;
+        }
+
+        .progress-dot {
+            flex: 1;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            transition: background 0.3s;
+        }
+
+        .progress-dot.active {
+            background: linear-gradient(90deg, #e94560, #ff6b6b);
+        }
+
+        .progress-dot.done {
+            background: #1a1a2e;
+        }
+
+        .question-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 14px;
+            color: #e94560;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 8px;
+        }
+
+        h2 {
+            font-family: 'Inter', sans-serif;
+            font-size: 22px;
+            color: #1a1a2e;
+            margin-bottom: 24px;
+            line-height: 1.3;
+            font-weight: 700;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .option:hover {
+            border-color: #e94560;
+            background: #fff5f7;
+            transform: translateX(4px);
+        }
+
+        .option.selected {
+            border-color: #e94560;
+            background: #fff5f7;
+            color: #1a1a2e;
+            font-weight: 600;
+        }
+
+        .option-icon { font-size: 20px; }
+
+        /* Result */
+        .result-card { text-align: center; }
+
+        .result-badge {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 24px;
+            background: linear-gradient(135deg, #e94560, #ff6b6b);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 56px;
+            box-shadow: 0 10px 40px rgba(233, 69, 96, 0.3);
+        }
+
+        .result-label {
+            font-size: 12px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        #result-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 36px;
+            color: #1a1a2e;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .result-tagline {
+            font-size: 16px;
+            color: #e94560;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .result-description {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .sport-recommendation {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 28px;
+        }
+
+        .sport-icon-large {
+            font-size: 48px;
+            margin-bottom: 8px;
+        }
+
+        .sport-label {
+            font-size: 11px;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 4px;
+        }
+
+        .sport-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            color: white;
+            letter-spacing: 1px;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .result-badge { animation: bounce 0.5s ease-out; }
+
+        @media (max-width: 480px) {
+            .card { padding: 32px 24px; }
+            h1 { font-size: 36px; }
+            h2 { font-size: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Welcome -->
+        <div id="welcome-screen" class="screen active">
+            <div class="card">
+                <div class="sport-icons">🏃 🏊 🥊 🎾 🎿</div>
+                <h1>КАКОЙ ВИД СПОРТА ТЕБЕ ПОДХОДИТ?</h1>
+                <p class="subtitle">Ответь на 5 вопросов и узнай, какой спорт создан для тебя</p>
+                <button class="btn-primary" onclick="startQuiz()">НАЧАТЬ</button>
+                <div class="brand">Basecamp Quiz</div>
+            </div>
+        </div>
+
+        <!-- Question -->
+        <div id="question-screen" class="screen">
+            <div class="card">
+                <div class="progress-container" id="progress-dots"></div>
+                <div class="question-number" id="question-counter">Вопрос 1 из 5</div>
+                <h2 id="question-text"></h2>
+                <div class="options" id="options-container"></div>
+            </div>
+        </div>
+
+        <!-- Result -->
+        <div id="result-screen" class="screen">
+            <div class="card result-card">
+                <div class="result-badge" id="result-badge"></div>
+                <div class="result-label">Твой вид спорта:</div>
+                <h2 id="result-title"></h2>
+                <p class="result-tagline" id="result-tagline"></p>
+                <p class="result-description" id="result-description"></p>
+                <div class="sport-recommendation">
+                    <div class="sport-icon-large" id="result-icon"></div>
+                    <div class="sport-label">Попробуй</div>
+                    <div class="sport-name" id="result-sport"></div>
+                </div>
+                <button class="btn-primary" onclick="restartQuiz()">ПРОЙТИ ЕЩЁ РАЗ</button>
+                <div class="brand">Basecamp Quiz</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const sports = {
+            runner: {
+                name: "БЕГУН",
+                sport: "Марафон / Бег",
+                icon: "🏃",
+                tagline: "Ты идёшь до конца",
+                description: "Ты упорный, целеустремлённый и не сдаёшься. Бег — это медитация в движении. Ты любишь ставить цели и достигать их шаг за шагом."
+            },
+            swimmer: {
+                name: "ПЛОВЕЦ",
+                sport: "Плавание",
+                icon: "🏊",
+                tagline: "Течь свободно",
+                description: "Ты спокойный и уравновешенный. В воде ты чувствуешь себя как дома — там тихо, грациозно и свободно. Ты ценишь гармонию."
+            },
+            boxer: {
+                name: "БОКСЁР",
+                sport: "Бокс / Единоборства",
+                icon: "🥊",
+                tagline: "Сила и дисциплина",
+                description: "Ты сильный, уверенный и не боишься трудностей. Для тебя спорт — это вызов, который ты принимаешь. Дисциплина и концентрация — твои суперсилы."
+            },
+            tennis: {
+                name: "ТЕННИСИСТ",
+                sport: "Теннис / Бадминтон",
+                icon: "🎾",
+                tagline: "Точность и стратегия",
+                description: "Ты умный, тактичный и любишь азартные игры, как Мадина Пронина. Тебе нравится соревноваться и бить соперника не силой, а хитростью."
+            },
+            skier: {
+                name: "ЛЫЖНИК",
+                sport: "Лыжи / Зимние виды",
+                icon: "🎿",
+                tagline: "Холод не помеха",
+                description: "Ты любишь приключения и не боишься холода. Скорость, горы и свежий воздух — вот что тебя заряжает. Ты ищешь адреналин всюду."
+            }
+        };
+
+        const questions = [
+            {
+                text: "Как ты проводишь выходные?",
+                options: [
+                    { text: "Длинная пробежка рано утром", icon: "🌅", sport: "runner" },
+                    { text: "Плаваю в бассейне или озере", icon: "💧", sport: "swimmer" },
+                    { text: "Тренировка в зале или на тяжёлой груше", icon: "💪", sport: "boxer" },
+                    { text: "Прогулка или активная игра на свежем воздухе", icon: "🌳", sport: "tennis" },
+                    { text: "Катаюсь на лыжах, сноуборде или гуляю в горах", icon: "🏔️", sport: "skier" }
+                ]
+            },
+            {
+                text: "Ты попал в новый город. Что ищешь первым?",
+                options: [
+                    { text: "Беговую дорожку или парк для пробежки", icon: "🏞️", sport: "runner" },
+                    { text: "Ближайший бассейн или пляж", icon: "🏖️", sport: "swimmer" },
+                    { text: "Спортзал или секцию единоборств", icon: "🏋️", sport: "boxer" },
+                    { text: "Корт или площадку, где играют", icon: "🏸", sport: "tennis" },
+                    { text: "Горы или лыжный курорт поблизости", icon: "⛷️", sport: "skier" }
+                ]
+            },
+            {
+                text: "Твой идеальный вечер после работы?",
+                options: [
+                    { text: "Лёгкая пробежка, чтобы снять стресс", icon: "🎧", sport: "runner" },
+                    { text: "Посещение бассейна или спа", icon: "🧖", sport: "swimmer" },
+                    { text: "Интенсивная тренировка или спарринг", icon: "💥", sport: "boxer" },
+                    { text: "Партия тенниса или бадминтона с другом", icon: "🤝", sport: "tennis" },
+                    { text: "Планирование следующей поездки на горнолыжку", icon: "🗺️", sport: "skier" }
+                ]
+            },
+            {
+                text: "Что важнее всего в спорте?",
+                options: [
+                    { text: "Постоянство — главный выигрыш в регулярности", icon: "📊", sport: "runner" },
+                    { text: "Гармония — спорт должен приносить удовольствие", icon: "☯️", sport: "swimmer" },
+                    { text: "Сила — я хочу быть сильнее каждого дня", icon: "⚡", sport: "boxer" },
+                    { text: "Азарт — мне важна конкуренция и счёт", icon: "🏆", sport: "tennis" },
+                    { text: "Приключение — спорт должен быть захватывающим", icon: "🌍", sport: "skier" }
+                ]
+            },
+            {
+                text: "Какой подарок тебя порадует?",
+                options: [
+                    { text: "Новые беговые кроссовки", icon: "👟", sport: "runner" },
+                    { text: "Абонемент в бассейн или на плавание", icon: "🎫", sport: "swimmer" },
+                    { text: "Новые боксёрские перчатки", icon: "🧤", sport: "boxer" },
+                    { text: "Ракетка или набор для тенниса", icon: "🏸", sport: "tennis" },
+                    { text: "Сезонный абонемент на лыжку", icon: "🎟️", sport: "skier" }
+                ]
+            }
+        ];
+
+        let currentQuestion = 0;
+        let answers = [];
+
+        function startQuiz() {
+            document.getElementById('welcome-screen').classList.remove('active');
+            document.getElementById('question-screen').classList.add('active');
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const question = questions[currentQuestion];
+            const container = document.getElementById('progress-dots');
+            container.innerHTML = '';
+            for (let i = 0; i < questions.length; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'progress-dot';
+                if (i < currentQuestion) dot.classList.add('done');
+                if (i === currentQuestion) dot.classList.add('active');
+                container.appendChild(dot);
+            }
+            document.getElementById('question-counter').textContent = `Вопрос ${currentQuestion + 1} из ${questions.length}`;
+            document.getElementById('question-text').textContent = question.text;
+            const optionsEl = document.getElementById('options-container');
+            optionsEl.innerHTML = '';
+            question.options.forEach((option, index) => {
+                const div = document.createElement('div');
+                div.className = 'option';
+                div.innerHTML = `<span class="option-icon">${option.icon}</span><span>${option.text}</span>`;
+                div.onclick = () => selectOption(index);
+                optionsEl.appendChild(div);
+            });
+        }
+
+        function selectOption(index) {
+            const question = questions[currentQuestion];
+            answers.push(question.options[index].sport);
+            const options = document.querySelectorAll('.option');
+            options[index].classList.add('selected');
+            setTimeout(() => {
+                currentQuestion++;
+                if (currentQuestion < questions.length) {
+                    showQuestion();
+                } else {
+                    showResult();
+                }
+            }, 300);
+        }
+
+        function calculateResult() {
+            const counts = {};
+            answers.forEach(a => counts[a] = (counts[a] || 0) + 1);
+            let max = 0, result = null;
+            Object.entries(counts).forEach(([sport, count]) => {
+                if (count > max) { max = count; result = sport; }
+            });
+            return result;
+        }
+
+        function showResult() {
+            const key = calculateResult();
+            const result = sports[key];
+            document.getElementById('question-screen').classList.remove('active');
+            document.getElementById('result-screen').classList.add('active');
+            document.getElementById('result-badge').textContent = result.icon;
+            document.getElementById('result-title').textContent = result.name;
+            document.getElementById('result-tagline').textContent = result.tagline;
+            document.getElementById('result-description').textContent = result.description;
+            document.getElementById('result-icon').textContent = result.icon;
+            document.getElementById('result-sport').textContent = result.sport;
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            answers = [];
+            document.getElementById('result-screen').classList.remove('active');
+            document.getElementById('welcome-screen').classList.add('active');
+        }
+    </script>
+</body>
+</html>
