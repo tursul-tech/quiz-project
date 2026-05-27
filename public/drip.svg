@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
+  <defs>
+    <linearGradient id="bg4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#5c4a3a"/>
+      <stop offset="100%" style="stop-color:#7a6550"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#bg4)"/>
+  <ellipse cx="300" cy="280" rx="80" ry="15" fill="#3d2b1f" opacity="0.3"/>
+  <path d="M220 120 L220 250 Q220 280 260 280 L340 280 Q380 280 380 250 L380 120 Z" fill="#f5f0e8" stroke="#d4c5b0" stroke-width="2"/>
+  <ellipse cx="300" cy="120" rx="80" ry="15" fill="#e8ddd0"/>
+  <ellipse cx="300" cy="120" rx="70" ry="10" fill="#6b4f3a"/>
+  <path d="M280 105 Q290 90 300 105 Q310 90 320 105" fill="none" stroke="#f5f0e8" stroke-width="2" opacity="0.5">
+    <animate attributeName="d" values="M280 105 Q290 90 300 105 Q310 90 320 105;M280 100 Q290 85 300 100 Q310 85 320 100;M280 105 Q290 90 300 105 Q310 90 320 105" dur="2s" repeatCount="indefinite"/>
+  </path>
+  <rect x="295" y="80" width="10" height="20" rx="2" fill="#d4c5b0"/>
+  <text x="300" y="340" text-anchor="middle" fill="#c49a3c" font-family="Georgia" font-size="18" font-weight="bold">БОЛЬШОЙ ДРИП</text>
+</svg>

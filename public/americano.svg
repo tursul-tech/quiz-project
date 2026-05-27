@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
+  <defs>
+    <linearGradient id="bg3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3a4a3a"/>
+      <stop offset="100%" style="stop-color:#4a5a4a"/>
+    </linearGradient>
+    <linearGradient id="oat" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f5f0e8"/>
+      <stop offset="100%" style="stop-color:#e8ddd0"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#bg3)"/>
+  <ellipse cx="300" cy="270" rx="55" ry="12" fill="#2a3a2a" opacity="0.3"/>
+  <path d="M250 140 L250 240 Q250 270 280 270 L320 270 Q350 270 350 240 L350 140 Z" fill="url(#oat)" stroke="#c4b5a0" stroke-width="2"/>
+  <ellipse cx="300" cy="140" rx="50" ry="12" fill="#f5f0e8"/>
+  <ellipse cx="300" cy="140" rx="42" ry="8" fill="#6b4f3a"/>
+  <circle cx="285" cy="136" r="6" fill="#f5f0e8" opacity="0.3"/>
+  <path d="M290 125 Q295 115 300 125 Q305 115 310 125" fill="none" stroke="#f5f0e8" stroke-width="1.5" opacity="0.4">
+    <animate attributeName="d" values="M290 125 Q295 115 300 125 Q305 115 310 125;M290 120 Q295 110 300 120 Q305 110 310 120;M290 125 Q295 115 300 125 Q305 115 310 125" dur="3s" repeatCount="indefinite"/>
+  </path>
+  <text x="300" y="340" text-anchor="middle" fill="#8fbc8f" font-family="Georgia" font-size="16" font-weight="bold">АМЕРИКАНО НА ОВСЯНОМ</text>
+</svg>

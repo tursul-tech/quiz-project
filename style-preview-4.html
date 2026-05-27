@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Стиль 4: Тёплый и уютный</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(180deg, #f5e6d3 0%, #e8d5b8 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .card {
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 10px 40px rgba(139,90,43,0.12);
+        }
+        .question-number {
+            font-size: 13px;
+            color: #8b6914;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .question-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #a0845c;
+            margin-bottom: 20px;
+        }
+        h2 {
+            font-size: 22px;
+            color: #3d2b1f;
+            margin-bottom: 28px;
+            line-height: 1.4;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .option {
+            background: rgba(255,255,255,0.7);
+            border: 2px solid #e0cdb5;
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #5c4a3a;
+        }
+        .option:hover {
+            border-color: #8b6914;
+            background: rgba(255,248,235,0.9);
+            transform: translateY(-1px);
+        }
+        .option.selected {
+            border-color: #8b6914;
+            background: #fff8eb;
+            color: #3d2b1f;
+            font-weight: 600;
+        }
+        .progress {
+            height: 6px;
+            background: #e0cdb5;
+            border-radius: 3px;
+            margin-bottom: 28px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            width: 40%;
+            background: linear-gradient(90deg, #c49a3c, #8b6914);
+            border-radius: 3px;
+        }
+        .icon {
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="progress"><div class="progress-bar"></div></div>
+        <div class="icon">☕</div>
+        <div class="question-label">Вопрос 2 из 5</div>
+        <h2>Как выглядят ваши идеальные выходные?</h2>
+        <div class="options">
+            <div class="option">Поход или приключение на свежем воздухе</div>
+            <div class="option">Вечеринка или встреча с друзьями</div>
+            <div class="option">Йога, медитация и здоровая еда</div>
+            <div class="option">Навести порядок и распланировать неделю</div>
+        </div>
+    </div>
+</body>
+</html>

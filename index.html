@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Какой у тебя кофейный характер? | Basecamp Coffee</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Экран приветствия -->
+        <div id="welcome-screen" class="screen active">
+            <div class="card">
+                <div class="logo">☕</div>
+                <h1>Какой у тебя<br>кофейный характер?</h1>
+                <p class="subtitle">Ответь на 5 вопросов и узнай,<br>какой кофе подходит именно тебе</p>
+                <button class="btn-primary" onclick="startQuiz()">Начать квиз</button>
+                <div class="brand">Basecamp Coffee</div>
+            </div>
+        </div>
+
+        <!-- Экран вопроса -->
+        <div id="question-screen" class="screen">
+            <div class="card">
+                <div class="progress">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+                <div class="question-counter" id="question-counter">Вопрос 1 из 5</div>
+                <h2 id="question-text"></h2>
+                <div class="options" id="options-container">
+                    <!-- Options will be inserted here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Экран результата -->
+        <div id="result-screen" class="screen">
+            <div class="card result-card">
+                <div class="result-image" id="result-image"></div>
+                <div class="result-label">Твой кофейный характер:</div>
+                <h2 id="result-title"></h2>
+                <p class="result-tagline" id="result-tagline"></p>
+                <p class="result-description" id="result-description"></p>
+                <div class="coffee-recommendation">
+                    <div class="coffee-icon">☕</div>
+                    <div>
+                        <div class="coffee-label">Твой кофе:</div>
+                        <div class="coffee-name" id="result-coffee"></div>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="restartQuiz()">Пройти ещё раз</button>
+                <div class="brand">Basecamp Coffee</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="quiz.js"></script>
+</body>
+</html>
